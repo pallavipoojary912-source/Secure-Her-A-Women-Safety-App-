@@ -26,10 +26,8 @@ The aim of this project is to create a quick and reliable tool that allows women
 ## Screenshots
 
 ### Homepage
-![Homepage](<img width="1913" height="705" alt="Screenshot of women safety" src="https://github.com/user-attachments/assets/5125673f-15a1-4bc1-8998-f4ead68e6a12" />
-)
+![Homepage](<img width="1913" height="705" alt="Screenshot of women safety" src="https://github.com/user-attachments/assets/5125673f-15a1-4bc1-8998-f4ead68e6a12" />.png)
 <br>
 ### Other Pages
-![SOS](<img width="1888" height="897" alt="Screenshot of second page of women safety" src="https://github.com/user-attachments/assets/37c7354a-a890-4062-a793-39844b790945" />
-)
+![SOS](<img width="1888" height="897" alt="Screenshot of second page of women safety" src="https://github.com/user-attachments/assets/37c7354a-a890-4062-a793-39844b790945" />.png)
 
