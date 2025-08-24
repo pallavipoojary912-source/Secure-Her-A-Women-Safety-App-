@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureHer - Women Safety App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --primary: #ff66b3;
+            --secondary: #ff3399;
+            --accent: #ff99cc;
+            --dark: #333;
+            --light: #ffeff6;
+            --danger: #ff3333;
+            --success: #4caf50;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+        }
+
+        .logo-img {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: var(--primary);
+        }
+
+        .logo-text h1 {
+            color: white;
+            font-size: 1.8rem;
+            line-height: 1.2;
+        }
+
+        .logo-text h2 {
+            color: white;
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        /* Navigation */
+        nav {
+            position: relative;
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            padding: 10px 15px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover, nav a.active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            flex: 1;
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            background: white;
+            border-radius: 10px;
+            margin: 30px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero h2 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            color: #555;
+        }
+
+        .cta-button {
+            background: var(--primary);
+            color: white;
+            padding: 15px 40px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            display: inline-block;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
+        .cta-button:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 102, 179, 0.3);
+        }
+
+        /* Features Section */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        /* Form Styles */
+        .form-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: 30px auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+
+        /* Panic Button */
+        .panic-container {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        #panic-btn {
+            background: var(--danger);
+            color: white;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            margin: 30px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 51, 51, 0.4);
+        }
+
+        #panic-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(255, 51, 51, 0.6);
+        }
+
+        #panic-btn i {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        /* GPS Section */
+        .gps-container {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .map-placeholder {
+            width: 100%;
+            height: 400px;
+            background: #eee;
+            border-radius: 10px;
+            margin: 30px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .map-placeholder i {
+            font-size: 4rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        /* Help Section */
+        .help-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            margin-bottom: 20px;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .faq-question {
+            padding: 20px;
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            padding: 20px;
+            display: none;
+        }
+
+        .faq-answer.active {
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 50px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+                padding: 15px;
+            }
+            
+            .logo {
+                margin-bottom: 15px;
+                justify-content: center;
+            }
+            
+            nav ul {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                margin-top: 20px;
+            }
+            
+            nav ul.active {
+                display: flex;
+            }
+            
+            .hamburger {
+                display: block;
+                position: absolute;
+                top: -40px;
+                right: 0;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo" id="home-link">
+            <div class="logo-img">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <div class="logo-text">
+                <h1>SecureHer</h1>
+                <h2>A Lifeline for Women</h2>
+            </div>
+        </div>
+        <nav>
+            <button class="hamburger" id="hamburger">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul id="nav-menu">
+                <li><a href="#home" class="nav-link active" data-page="home">Home</a></li>
+                <li><a href="#login" class="nav-link" data-page="login">Login</a></li>
+                <li><a href="#emergency" class="nav-link" data-page="emergency">Emergency Contact</a></li>
+                <li><a href="#gps" class="nav-link" data-page="gps">GPS Tracking</a></li>
+                <li><a href="#panic" class="nav-link" data-page="panic">Panic Button</a></li>
+                <li><a href="#help" class="nav-link" data-page="help">Help</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Home Page -->
+        <div class="page active" id="home">
+            <div class="hero">
+                <h2>Welcome to SecureHer</h2>
+                <p>Empowering women with a reliable and accessible safety application. Our mission is to provide security and confidence in critical situations through features like emergency contacts, GPS tracking, and a panic button.</p>
+                <a href="#help" class="cta-button" id="learn-more">Learn More</a>
+            </div>
+
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <h3>Personal Safety</h3>
+                    <p>Create your personal safety profile and keep your information secure with our login system.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <h3>Emergency Contacts</h3>
+                    <p>Quickly access your emergency contacts with just a tap when you need help.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3>GPS Tracking</h3>
+                    <p>Share your location with trusted contacts in real-time for added safety.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <h3>Panic Button</h3>
+                    <p>Instantly send alerts to your emergency contacts with your location when in danger.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Login Page -->
+        <div class="page" id="login">
+            <div class="form-container">
+                <h2 style="text-align: center; color: var(--primary); margin-bottom: 20px;">Login to SecureHer</h2>
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" required>
+                    </div>
+                    <button type="submit" class="cta-button" style="width: 100%;">Sign In</button>
+                </form>
+                <p id="login-msg" style="text-align: center; margin-top: 20px;"></p>
+            </div>
+        </div>
+
+        <!-- Emergency Contact Page -->
+        <div class="page" id="emergency">
+            <div class="form-container">
+                <h2 style="text-align: center; color: var(--primary); margin-bottom: 20px;">Emergency Contact</h2>
+                <p style="text-align: center; margin-bottom: 20px;">Add your emergency contacts who will be notified in case of an emergency.</p>
+                <form id="emergency-form">
+                    <div class="form-group">
+                        <label for="contact-name">Name:</label>
+                        <input type="text" id="contact-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-phone">Phone Number:</label>
+                        <input type="tel" id="contact-phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-relation">Relationship:</label>
+                        <input type="text" id="contact-relation" required>
+                    </div>
+                    <button type="submit" class="cta-button" style="width: 100%;">Add Contact</button>
+                </form>
+                <div id="contacts-list" style="margin-top: 30px;">
+                    <h3 style="color: var(--primary); margin-bottom: 15px;">Your Emergency Contacts</h3>
+                    <div id="contacts-container"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- GPS Tracking Page -->
+        <div class="page" id="gps">
+            <div class="gps-container">
+                <h2 style="color: var(--primary); margin-bottom: 20px;">GPS Tracking</h2>
+                <p>View your current location and share it with your emergency contacts.</p>
+                
+                <div class="map-placeholder">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <p>Your location will be shown here</p>
+                    <p id="demo" style="margin-top: 10px;"></p>
+                </div>
+                
+                <button class="cta-button" id="get-location">
+                    <i class="fas fa-map-marker-alt"></i> Get My Location
+                </button>
+                
+                <button class="cta-button" id="share-location" style="display: none; margin-left: 10px;">
+                    <i class="fas fa-share-alt"></i> Share My Location
+                </button>
+                
+                <p id="location-status" style="margin-top: 20px;"></p>
+            </div>
+        </div>
+
+        <!-- Panic Button Page -->
+        <div class="page" id="panic">
+            <div class="panic-container">
+                <h2 style="color: var(--primary); margin-bottom: 20px;">Panic Button</h2>
+                <p>In case of emergency, press the button below to send an alert to your emergency contacts with your location.</p>
+                
+                <button id="panic-btn">
+                    <i class="fas fa-bell"></i>
+                    EMERGENCY
+                </button>
+                
+                <p id="panic-msg"></p>
+                
+                <div style="margin-top: 40px;">
+                    <h3 style="color: var(--primary); margin-bottom: 15px;">Safety Tips</h3>
+                    <ul style="text-align: left; max-width: 600px; margin: 0 auto;">
+                        <li>Make sure your emergency contacts are up to date</li>
+                        <li>Keep your phone charged when going out</li>
+                        <li>Familiarize yourself with the panic button functionality</li>
+                        <li>Test the button in a safe environment to understand how it works</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Help Page -->
+        <div class="page" id="help">
+            <div class="help-container">
+                <h2 style="text-align: center; color: var(--primary); margin-bottom: 30px;">Help & Instructions</h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How do I set up my emergency contacts?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Go to the Emergency Contact page, fill in the details of your trusted contacts, and click "Add Contact". You can add multiple contacts who will be notified in case of emergency.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How does the panic button work?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>When you press the panic button, the app will immediately send your current location to all your emergency contacts via SMS and email with a message indicating you need help.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Is my location data secure?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, we take privacy seriously. Your location data is only shared with your emergency contacts when you explicitly use the panic button or share location feature.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Can I use this app without internet?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>The panic button will attempt to send alerts via SMS if internet is not available, but for full functionality including GPS tracking, internet connection is required.</p>
+                    </div>
+                </div>
